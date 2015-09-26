@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sampleArray">
+        <item>Киев</item>
+        <item>Днепропетровск</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+        <item>Одесса</item>
+        <item>Кировоград</item>
+    </string-array>
+
+</resources>

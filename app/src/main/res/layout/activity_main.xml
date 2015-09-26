@@ -13,14 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <Button
+        <ImageButton
             style="?android:attr/alertDialogIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="@string/btn_add_record_dialog"
+            android:src="@drawable/ic_add_white_24dp"
             android:id="@+id/btn_add_record"
-            android:layout_gravity="right|bottom" />
+            android:layout_gravity="right|bottom"
+            android:contentDescription="@string/btn_add_record_dialog" />
     </FrameLayout>
 
 

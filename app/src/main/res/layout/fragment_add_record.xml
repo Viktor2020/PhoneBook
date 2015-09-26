@@ -12,23 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/name_contact"
+        android:layout_margin="10dp"
         android:id="@+id/tvNamePhone" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etName"
+        android:layout_marginLeft="10dp"
         android:inputType="text" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/number_contact"
+        android:layout_marginLeft="10dp"
         android:id="@+id/tvNumberPhone" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:id="@+id/etNumber"
         android:inputType="number" />
 

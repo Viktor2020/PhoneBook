@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -43,8 +43,9 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
     }
 
     private void setUI() {
-        Button btnAdd = (Button) findViewById(R.id.btn_add_record);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnAddRecord = (ImageButton) findViewById(R.id.btn_add_record);
+//        Button btnAdd = (Button) findViewById(R.id.btn_add_record);
+        btnAddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment addDialogFragment = new AddRecordDialogFragment();
