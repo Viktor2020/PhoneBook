@@ -2,10 +2,13 @@ package student.ppjava13v1.itstep.phonebook.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -29,19 +32,42 @@ public class RecordFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        records = getRecords();
-
-        View rootView = inflater.inflate(R.layout.activity_main, container, false);
+        View rootView = inflater.inflate(R.layout.record_fragment, container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
 
+        records = getRecords();
+
         adapter = new RecordAdapter(getActivity(), 0, records);
+
         listView.setAdapter(adapter);
+
+        registerForContextMenu(listView);
 
         return rootView;
     }
 
-    public Adapter getAdapter () {
+    public Adapter getAdapter() {
         return adapter;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getActivity().getMenuInflater().inflate(R.menu.my_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.menu_delete:
+                adapter.removeItem(info.position);
+                return true;
+            case R.id.menu_edit:
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     public List<ModelRecord> getRecords() {

@@ -13,4 +13,7 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_ok">OK</string>
     <string name="btn_add_record_dialog">Add record</string>
+    <string name="menu_delete_item_record">Delete</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_edit">Edit</string>
 </resources>

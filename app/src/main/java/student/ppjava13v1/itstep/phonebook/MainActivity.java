@@ -19,8 +19,6 @@ import student.ppjava13v1.itstep.phonebook.model.ModelRecord;
 
 public class MainActivity extends AppCompatActivity implements AddRecordDialogFragment.OnAddRecordListener {
 
-    private ListView listView;
-    private List<ModelRecord> records;
     private RecordAdapter adapter;
     private RecordFragment recordFragment;
 
@@ -29,22 +27,22 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        records = getRecords();
-
-        listView = (ListView) findViewById(R.id.list);
-        adapter = new RecordAdapter(this, 0, records);
-        listView.setAdapter(adapter);
-
+        recordFragment = new RecordFragment();
+        getFragmentManager().beginTransaction().add(R.id.target_frame_contact_list, recordFragment).commit();
 
 
         setUI();
 
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        adapter = (RecordAdapter) recordFragment.getAdapter();
+    }
+
     private void setUI() {
         ImageButton btnAddRecord = (ImageButton) findViewById(R.id.btn_add_record);
-//        Button btnAdd = (Button) findViewById(R.id.btn_add_record);
         btnAddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,55 +73,6 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
         return super.onOptionsItemSelected(item);
     }
 
-    public List<ModelRecord> getRecords() {
-        records = new ArrayList<>();
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        return records;
-    }
 
     @Override
     public void onAddRecord(ModelRecord record) {

@@ -1,13 +1,10 @@
 package student.ppjava13v1.itstep.phonebook.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import java.util.List;
 import student.ppjava13v1.itstep.phonebook.R;
 import student.ppjava13v1.itstep.phonebook.model.ModelRecord;
 
-public class RecordAdapter extends ArrayAdapter {
+public class RecordAdapter extends ArrayAdapter<ModelRecord> {
 
 
     List<ModelRecord> records;
@@ -39,18 +36,9 @@ public class RecordAdapter extends ArrayAdapter {
 
         TextView textViewName = (TextView) currentView.findViewById(R.id.tvNamePhone);
         TextView textViewNumber = (TextView) currentView.findViewById(R.id.tvNumberPhone);
-        Button btnDelete = (Button) currentView.findViewById(R.id.btn_delete);
 
-        textViewName.setText(((ModelRecord) getItem(position)).getContactName());
-        textViewNumber.setText(((ModelRecord) getItem(position)).getContactNumber());
-
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                remove(getItem(position));
-                notifyDataSetChanged();
-            }
-        });
+        textViewName.setText( getItem(position).getContactName());
+        textViewNumber.setText( getItem(position).getContactNumber());
 
         currentView.setOnClickListener(new View.OnClickListener() {
             @Override
