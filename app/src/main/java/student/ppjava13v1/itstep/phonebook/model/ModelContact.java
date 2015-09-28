@@ -14,6 +14,12 @@ public class ModelContact {
         this.contactNumber = contactNumber;
     }
 
+    public ModelContact(long id, String contactName, String contactNumber) {
+        this.id = id;
+        this.contactName = contactName;
+        this.contactNumber = contactNumber;
+    }
+
     public long getId() {
         return id;
     }
