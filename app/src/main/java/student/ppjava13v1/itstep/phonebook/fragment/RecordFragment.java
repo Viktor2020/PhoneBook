@@ -1,6 +1,8 @@
 package student.ppjava13v1.itstep.phonebook.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -13,9 +15,10 @@ import android.widget.ListView;
 import student.ppjava13v1.itstep.phonebook.R;
 import student.ppjava13v1.itstep.phonebook.adapter.RecordAdapter;
 import student.ppjava13v1.itstep.phonebook.database.DBHelper;
+import student.ppjava13v1.itstep.phonebook.dialog.EditRecordDialogFragment;
 import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
-public class RecordFragment extends Fragment {
+public class RecordFragment extends Fragment implements EditRecordDialogFragment.OnEditRecordListener {
 
     private ListView listView;
     private RecordAdapter adapter;
@@ -61,10 +64,23 @@ public class RecordFragment extends Fragment {
                 removeRecord(adapter.getItemId(info.position));
                 return true;
             case R.id.menu_edit:
+                editContactDialog(info.position);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void editContactDialog(long contactId) {
+        Cursor cursor = (Cursor) adapter.getItem((int) contactId);
+        long id = cursor.getLong(cursor.getColumnIndex(DBHelper._ID));
+        String name = cursor.getString(cursor.getColumnIndex(DBHelper.CONTACT_NAME_COLUMN));
+        String number = cursor.getString(cursor.getColumnIndex(DBHelper.CONTACT_NUMBER_COLUMN));
+
+        ModelContact contact = new ModelContact(id, name, number);
+
+        DialogFragment dialogFragment = EditRecordDialogFragment.newInstance(contact, this);
+        dialogFragment.show(getFragmentManager(), "EditRecordDialogFragment");
     }
 
     public void addRecord(ModelContact contact) {
@@ -72,8 +88,18 @@ public class RecordFragment extends Fragment {
         adapter.changeCursor(dbHelper.getAllContacts());
     }
 
-    public void removeRecord(long pos) {
-        dbHelper.deleteContactById(pos);
+    public void removeRecord(long contactId) {
+        dbHelper.deleteContactById(contactId);
         adapter.changeCursor(dbHelper.getAllContacts());
+    }
+
+    public void editRecord(ModelContact contact) {
+        dbHelper.updateContact(contact);
+        adapter.changeCursor(dbHelper.getAllContacts());
+    }
+
+    @Override
+    public void onEditRecord(ModelContact record) {
+        editRecord(record);
     }
 }
