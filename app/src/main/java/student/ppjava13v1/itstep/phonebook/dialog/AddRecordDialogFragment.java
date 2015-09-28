@@ -1,6 +1,5 @@
 package student.ppjava13v1.itstep.phonebook.dialog;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -15,10 +14,17 @@ import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
 public class AddRecordDialogFragment extends DialogFragment {
 
-    private OnAddRecordListener mListener;
+    private OnAddRecordListener onAddRecord;
 
     public AddRecordDialogFragment() {
         // Required empty public constructor
+    }
+
+    public static AddRecordDialogFragment newInstance(OnAddRecordListener onAddRecord) {
+        AddRecordDialogFragment dialogFragment = new AddRecordDialogFragment();
+        dialogFragment.setOnAddRecord(onAddRecord);
+
+        return dialogFragment;
     }
 
     @Override
@@ -40,7 +46,7 @@ public class AddRecordDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 ModelContact record = new ModelContact(etName.getText().toString(),
                         etNumber.getText().toString());
-                mListener.onAddRecord(record);
+                onAddRecord.onAddRecord(record);
                 dialog.dismiss();
             }
         });
@@ -56,26 +62,12 @@ public class AddRecordDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnAddRecordListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnAddRecordListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
 
     public interface OnAddRecordListener {
         void onAddRecord(ModelContact record);
     }
 
+    public void setOnAddRecord(OnAddRecordListener onAddRecord) {
+        this.onAddRecord = onAddRecord;
+    }
 }

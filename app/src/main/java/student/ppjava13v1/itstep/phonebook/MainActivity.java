@@ -10,9 +10,8 @@ import android.widget.ImageButton;
 
 import student.ppjava13v1.itstep.phonebook.dialog.AddRecordDialogFragment;
 import student.ppjava13v1.itstep.phonebook.fragment.RecordFragment;
-import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
-public class MainActivity extends AppCompatActivity implements AddRecordDialogFragment.OnAddRecordListener {
+public class MainActivity extends AppCompatActivity {
 
     private RecordFragment recordFragment;
 
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
         btnAddRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment addDialogFragment = new AddRecordDialogFragment();
+                DialogFragment addDialogFragment = AddRecordDialogFragment.newInstance(recordFragment);
                 addDialogFragment.show(getFragmentManager(), "AddRecordDialogFragment");
             }
         });
@@ -64,11 +63,5 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    public void onAddRecord(ModelContact record) {
-        recordFragment.addRecord(record);
     }
 }

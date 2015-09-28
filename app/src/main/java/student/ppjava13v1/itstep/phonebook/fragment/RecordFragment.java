@@ -10,15 +10,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import student.ppjava13v1.itstep.phonebook.R;
 import student.ppjava13v1.itstep.phonebook.adapter.RecordAdapter;
 import student.ppjava13v1.itstep.phonebook.database.DBHelper;
+import student.ppjava13v1.itstep.phonebook.dialog.AddRecordDialogFragment;
 import student.ppjava13v1.itstep.phonebook.dialog.EditRecordDialogFragment;
 import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
-public class RecordFragment extends Fragment implements EditRecordDialogFragment.OnEditRecordListener {
+public class RecordFragment extends Fragment implements EditRecordDialogFragment.OnEditRecordListener
+        , AddRecordDialogFragment.OnAddRecordListener {
 
     private ListView listView;
     private RecordAdapter adapter;
@@ -101,5 +104,10 @@ public class RecordFragment extends Fragment implements EditRecordDialogFragment
     @Override
     public void onEditRecord(ModelContact record) {
         editRecord(record);
+    }
+
+    @Override
+    public void onAddRecord(ModelContact record) {
+        addRecord(record);
     }
 }
