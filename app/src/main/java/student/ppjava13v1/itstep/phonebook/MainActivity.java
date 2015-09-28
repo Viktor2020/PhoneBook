@@ -7,19 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import student.ppjava13v1.itstep.phonebook.adapter.RecordAdapter;
 import student.ppjava13v1.itstep.phonebook.dialog.AddRecordDialogFragment;
 import student.ppjava13v1.itstep.phonebook.fragment.RecordFragment;
-import student.ppjava13v1.itstep.phonebook.model.ModelRecord;
+import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
 public class MainActivity extends AppCompatActivity implements AddRecordDialogFragment.OnAddRecordListener {
 
-    private RecordAdapter adapter;
     private RecordFragment recordFragment;
 
     @Override
@@ -38,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        adapter = (RecordAdapter) recordFragment.getAdapter();
     }
 
     private void setUI() {
@@ -75,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements AddRecordDialogFr
 
 
     @Override
-    public void onAddRecord(ModelRecord record) {
-        adapter.addRecord(record);
+    public void onAddRecord(ModelContact record) {
+        recordFragment.addRecord(record);
     }
 }

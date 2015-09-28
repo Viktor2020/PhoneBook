@@ -1,15 +1,15 @@
 package student.ppjava13v1.itstep.phonebook.model;
 
-public class ModelRecord {
+public class ModelContact {
 
     private long id;
     private String contactName;
     private String contactNumber;
 
-    public ModelRecord() {
+    public ModelContact() {
     }
 
-    public ModelRecord(String contactName, String contactNumber) {
+    public ModelContact(String contactName, String contactNumber) {
         this.contactName = contactName;
         this.contactNumber = contactNumber;
     }

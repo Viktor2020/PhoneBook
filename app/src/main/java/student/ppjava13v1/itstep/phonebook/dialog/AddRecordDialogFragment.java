@@ -5,18 +5,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import student.ppjava13v1.itstep.phonebook.R;
-import student.ppjava13v1.itstep.phonebook.model.ModelRecord;
+import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
 public class AddRecordDialogFragment extends DialogFragment {
 
@@ -43,7 +38,7 @@ public class AddRecordDialogFragment extends DialogFragment {
         builder.setPositiveButton(R.string.btn_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ModelRecord record = new ModelRecord(etName.getText().toString(),
+                ModelContact record = new ModelContact(etName.getText().toString(),
                         etNumber.getText().toString());
                 mListener.onAddRecord(record);
                 dialog.dismiss();
@@ -80,7 +75,7 @@ public class AddRecordDialogFragment extends DialogFragment {
 
 
     public interface OnAddRecordListener {
-        void onAddRecord(ModelRecord record);
+        void onAddRecord(ModelContact record);
     }
 
 }

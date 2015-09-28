@@ -7,22 +7,19 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import student.ppjava13v1.itstep.phonebook.R;
 import student.ppjava13v1.itstep.phonebook.adapter.RecordAdapter;
-import student.ppjava13v1.itstep.phonebook.model.ModelRecord;
+import student.ppjava13v1.itstep.phonebook.database.DBHelper;
+import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
 public class RecordFragment extends Fragment {
 
     private ListView listView;
-    private List<ModelRecord> records;
     private RecordAdapter adapter;
+    private DBHelper dbHelper;
 
     public RecordFragment() {
 
@@ -35,19 +32,19 @@ public class RecordFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.record_fragment, container, false);
         listView = (ListView) rootView.findViewById(R.id.list);
 
-        records = getRecords();
 
-        adapter = new RecordAdapter(getActivity(), 0, records);
+        dbHelper = new DBHelper(getActivity());
+        adapter = new RecordAdapter(getActivity(), R.layout.model_record
+                , dbHelper.getAllContacts()
+                , new String[]{DBHelper.CONTACT_NAME_COLUMN, DBHelper.CONTACT_NUMBER_COLUMN}
+                , new int[]{R.id.tvNamePhone, R.id.tvNumberPhone}
+                , 1);
 
         listView.setAdapter(adapter);
 
         registerForContextMenu(listView);
 
         return rootView;
-    }
-
-    public Adapter getAdapter() {
-        return adapter;
     }
 
     @Override
@@ -61,7 +58,7 @@ public class RecordFragment extends Fragment {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.menu_delete:
-                adapter.removeItem(info.position);
+                removeRecord(adapter.getItemId(info.position));
                 return true;
             case R.id.menu_edit:
                 return true;
@@ -70,48 +67,13 @@ public class RecordFragment extends Fragment {
         }
     }
 
-    public List<ModelRecord> getRecords() {
-        records = new ArrayList<>();
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        records.add(new ModelRecord("Vasy", "+3809584985"));
-        records.add(new ModelRecord("Alex", "+3809585987"));
-        records.add(new ModelRecord("Ivan", "+3809888985"));
-        records.add(new ModelRecord("Oleg", "+3899999985"));
-        records.add(new ModelRecord("Pety", "+7709584985"));
-        return records;
+    public void addRecord(ModelContact contact) {
+        dbHelper.insertContact(contact);
+        adapter.changeCursor(dbHelper.getAllContacts());
+    }
+
+    public void removeRecord(long pos) {
+        dbHelper.deleteContactById(pos);
+        adapter.changeCursor(dbHelper.getAllContacts());
     }
 }
