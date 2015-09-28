@@ -5,16 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 
 import student.ppjava13v1.itstep.phonebook.model.ModelContact;
 
-public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
+public class DBHelper extends SQLiteOpenHelper implements PhoneBookColumns {
 
-    public static final String DB_NAME = "phone-book.db";
-    public static final String CONTACT_TABLE = "users";
-    public static final String CONTACT_NAME_COLUMN = "name";
-    public static final String CONTACT_NUMBER_COLUMN = "password"; 
     public static final int DB_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -55,6 +50,13 @@ public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
         return this.getReadableDatabase().rawQuery("select * from " + CONTACT_TABLE, null);
     }
 
+    public Cursor query(String table, String[] columns, String selection,
+                        String[] selectionArgs, String groupBy, String having,
+                        String orderBy, String limit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.query(table, columns,selection ,selectionArgs ,groupBy ,having ,orderBy ,limit);
+    }
+
     public Cursor getContactByName(String name) {
 
         String[] projection = {
@@ -91,7 +93,7 @@ public class DBHelper extends SQLiteOpenHelper implements BaseColumns {
         return db.update(
                 CONTACT_TABLE,
                 values,
-                selection,
+                   selection,
                 selectionArgs);
     }
 
