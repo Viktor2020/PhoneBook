@@ -45,16 +45,23 @@ public class DBHelper extends SQLiteOpenHelper implements PhoneBookColumns {
                 null,
                 values);
     }
+    public long insertContact(ContentValues values) {
+        SQLiteDatabase db =  this.getWritableDatabase();
+        return db.insert(
+                CONTACT_TABLE,
+                null,
+                values);
+    }
 
     public Cursor getAllContacts() {
         return this.getReadableDatabase().rawQuery("select * from " + CONTACT_TABLE, null);
     }
 
-    public Cursor query(String table, String[] columns, String selection,
+    public Cursor query(String[] columns, String selection,
                         String[] selectionArgs, String groupBy, String having,
                         String orderBy, String limit) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.query(table, columns,selection ,selectionArgs ,groupBy ,having ,orderBy ,limit);
+        return db.query(CONTACT_TABLE, columns, selection, selectionArgs, groupBy, having, orderBy, limit);
     }
 
     public Cursor getContactByName(String name) {
@@ -93,7 +100,7 @@ public class DBHelper extends SQLiteOpenHelper implements PhoneBookColumns {
         return db.update(
                 CONTACT_TABLE,
                 values,
-                   selection,
+                selection,
                 selectionArgs);
     }
 
@@ -103,4 +110,16 @@ public class DBHelper extends SQLiteOpenHelper implements PhoneBookColumns {
         this.getWritableDatabase().delete(CONTACT_TABLE, selection, selectionArgs);
     }
 
+    public int deleteContact(String selection, String[] selectionArgs) {
+        return this.getWritableDatabase().delete(CONTACT_TABLE, selection, selectionArgs);
+    }
+
+    public int updateContact(ContentValues values, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.update(
+                CONTACT_TABLE,
+                values,
+                selection,
+                selectionArgs);
+    }
 }
